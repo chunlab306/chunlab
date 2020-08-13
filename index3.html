@@ -1,0 +1,964 @@
+<!doctype html>
+<html>
+<head> 
+<meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
+</head> 
+<style>
+ body{ 
+     font-family:'Nanum Gothic', sans-serif; 
+     background-image:url('https://source.unsplash.com/user/impatrickt'); 
+     background-size:100%; 
+} 
+.blank50{ 
+    height:50px;
+     } 
+.content-wrap{ 
+    background-color:white; 
+    margin-left:auto; 
+    margin-right:auto; 
+    width :870px; 
+    border: 3px solid #333333; 
+    padding: 20px; 
+    border-radius:5px; 
+} 
+.my-content{ 
+    font-size:15px;
+    line-height:1.8em;
+} 
+.my-range{ 
+    font-size:20px;
+} 
+.my-content input[type=radio],.my-content input[type=checkbox]{ 
+    /* Double-sized Checkboxes */
+     -webkit-transform: scale(2); /* Safari and Chrome */ 
+     margin: 13.5px; 
+}
+input[type="button"]{
+margin-top:20px;
+padding: .5rem 1rem; 
+font-size: 1.25rem; 
+line-height: 1.5; 
+border-radius: .3rem; 
+color: #fff; 
+    background-color: #007bff; 
+    border-color: #007bff; 
+    width: 300px; 
+}
+input[type="reset"]{
+padding: .5rem 1rem; 
+font-size: 1.25rem; 
+line-height: 1.5; 
+border-radius: .3rem; 
+color: #fff; 
+}
+input[type=range]{ 
+    -webkit-appearance: none; 
+    width:250px; 
+} 
+input[type=range]::-webkit-slider-thumb {
+     -webkit-appearance: none; 
+     box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+    
+     border: 3px solid white; 
+     height: 20px; 
+     width: 20px; 
+     border-radius: 50%; 
+     background: red; 
+     margin-top: -4px; 
+}
+input[type=range]::-webkit-slider-runnable-track { 
+    width: 500px; 
+    height: 10px;
+    cursor: pointer;
+    background: linear-gradient(to right, #005fc2, #35A834 40%, #ffd400 65%, #FF6400); 
+    box-shadow: 0 4px 4px rgba(0,0,0,0.3) inset;
+    border: 0.2px solid #010101;
+    border-radius: 3px; 
+} 
+input[type=range]:focus {
+     outline: none; 
+}
+input[type=range]:focus::-webkit-slider-runnable-track { 
+    background: #ccc;
+}
+input[type="reset"]{ 
+    background-color: white; 
+    color: #333333; 
+} 
+textarea { 
+    border:2px solid black; 
+    width: 92%; 
+        border-radius:5px; 
+        padding:20px; 
+        font-size:1rem; 
+        font-weight:700; 
+        font-family:'Nanum Gothic', sans-serif; 
+}
+input[type=range]:focus::-webkit-slider-runnable-track { 
+   
+    background: linear-gradient(to right, #005fc2, #35A834 40%, #ffd400 65%, #FF6400);
+} 
+@media screen and (max-width:500px){ 
+    .content-wrap{ 
+
+    } 
+    .my-content{ 
+        font-size:15px!important; 
+    } 
+    .my-content input[type=radio],.my-content input[type=checkbox]{ 
+        /* Double-sized Checkboxes */
+         -webkit-transform: scale(1.5); /* Safari and Chrome */ 
+         margin: 8px; 
+         } 
+    .content-wrap{
+         width :90%; 
+         padding: 1rem; 
+         border-radius:5px; 
+         } 
+         }
+</style> 
+<script> 
+function myFunction(){
+//오늘 날짜 확인 
+var date = new Date(); //매개변수가 없는 경우 현재 날짜와 시간을 가지는 인스턴스를 반환한다. 
+var month = date.getMonth() + 1; // 0부터 시작하므로 1더함 더함 
+var day = date.getDate(); 
+
+if (("" + month).length == 1) { month = "0" + month; } 
+if (("" + day).length == 1) { day = "0" + day; } 
+var printedDate = month +'-'+day; 
+//아래 부분은 통증 위치 파악
+var Location = "" 
+for(var i=0; i<19; i++){ 
+    if(document.getElementsByName("entry.1437573274")[i].checked == true){ 
+        var Location = Location + document.getElementsByName("entry.1437573274")[i].value 
+        }};
+//아래 부분은 통증 좌우 파악 
+var Lesion="" 
+for(var i=0; i<3; i++){ 
+    if(document.getElementsByName("entry.115438232")[i].checked == true){ 
+        var Lesion = document.getElementsByName("entry.115438232")[i].value
+         }}; 
+// 아래 부분은 외상 여부 파악 
+var Trauma="" 
+var TraumaReason= document.getElementById("entry.2066414521").value 
+var TraumaDuration= document.getElementById("entry.838521009").value 
+for(var i=0; i<2; i++){ 
+    if(document.getElementsByName("entry.1861609866")[i].checked == true){ 
+        var Trauma = document.getElementsByName("entry.1861609866")[i].value 
+        }}; 
+//아래 부분은 VAS 파악 
+var VAS=document.getElementById("vas-range").value; 
+
+var printedResult= Location +' '+ Lesion+' '+Trauma+' '+TraumaReason+' , '+ TraumaDuration+' , VAS: '+VAS +'\n'+ 'SB(+)'+'\n'+printedDate ; 
+document.getElementById("myResult").innerHTML= printedResult; 
+
+//아래는 결과 트리밍 printedResult=printedResult.replace(' ',' r'); 
+
+//결과 클립볻드로 복사 
+copy_to_clipboard(); };
+function copy_to_clipboard() { 
+    var copyText = document.getElementById("myResult"); 
+    copyText.focus(); 
+    copyText.select(); 
+    document.execCommand("Copy"); 
+    } 
+</script>
+
+<body> <div class="blan25"></div> 
+    <div class="content-wrap"> 
+        <h1> 설문지 </h1> 
+        <form action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSc9B7Twduo97zO7Bfp5AvkDi5FLpCEwbGL7qSZ0S1UuyUEoEQ/formResponse" target="resultIframe" method="POST" > 
+            <div class="my-content"> 
+                <div name="my-pain-location"> 
+                    
+                    <h2>전신</h2>
+                    <h3> 한서감</h3>
+                    <img src='한서감.jpg', width="787" height="150"><br>
+                    <input type="radio" name="entry.1437573274"  value="-4"style="font-size:3px";> 
+                    <input type="radio" name="entry.1437573274" value="-3.5">
+                    <input type="radio" name="entry.1437573274" value="-3">
+                    <input type="radio" name="entry.1437573274" value="-2.5">
+                    <input type="radio" name="entry.1437573274" value="-2">
+                    <input type="radio" name="entry.1437573274" value="-1.5">
+                    <input type="radio" name="entry.1437573274" value="-1">
+                    <input type="radio" name="entry.1437573274" value="-0.5">
+                    <input type="radio" name="entry.1437573274" value="0">
+                    <input type="radio" name="entry.1437573274" value="0.5">
+                    <input type="radio" name="entry.1437573274" value="1">
+                    <input type="radio" name="entry.1437573274" value="1.5">
+                    <input type="radio" name="entry.1437573274" value="2">
+                    <input type="radio" name="entry.1437573274" value="2.5">
+                    <input type="radio" name="entry.1437573274" value="3">
+                    <input type="radio" name="entry.1437573274" value="3.5">
+                    <input type="radio" name="entry.1437573274" value="4">
+                    <br>
+                    <br>
+                    
+                    <h3> 쾌적감</h3>
+                    <img src='쾌적감.jpg', width="882" height="150">
+                    <input type="radio" name="entry.2051853511"  value="-4"style="font-size:3px";>
+                    <input type="radio" name="entry.2051853511" value="-3.5">
+                    <input type="radio" name="entry.2051853511" value="-3">
+                    <input type="radio" name="entry.2051853511" value="-2.5">
+                    <input type="radio" name="entry.2051853511" value="-2">
+                    <input type="radio" name="entry.2051853511" value="-1.5">
+                    <input type="radio" name="entry.2051853511" value="-1">
+                    <input type="radio" name="entry.2051853511" value="-0.5">
+                    <input type="radio" name="entry.2051853511" value="-0">
+                    <input type="radio" name="entry.2051853511" value="0">
+                    <input type="radio" name="entry.2051853511" value="0.5">
+                    <input type="radio" name="entry.2051853511" value="1">
+                    <input type="radio" name="entry.2051853511" value="1.5">
+                    <input type="radio" name="entry.2051853511" value="2">
+                    <input type="radio" name="entry.2051853511" value="2.5">
+                    <input type="radio" name="entry.2051853511" value="3">
+                    <input type="radio" name="entry.2051853511" value="3.5">
+                    <input type="radio" name="entry.2051853511" value="4">
+                    <br>
+                    <br>
+                    <br>
+                    <h2>머리</h2>
+                    <h3> 한서감</h3>
+                    <img src='한서감.jpg', width="787" height="150"><br>
+                    <input type="radio" name="entry.1211458252"  value="-4"style="font-size:3px";> 
+                    <input type="radio" name="entry.1211458252" value="-3.5">
+                    <input type="radio" name="entry.1211458252" value="-3">
+                    <input type="radio" name="entry.1211458252" value="-2.5">
+                    <input type="radio" name="entry.1211458252" value="-2">
+                    <input type="radio" name="entry.1211458252" value="-1.5">
+                    <input type="radio" name="entry.1211458252" value="-1">
+                    <input type="radio" name="entry.1211458252" value="-0.5">
+                    <input type="radio" name="entry.1211458252" value="0">
+                    <input type="radio" name="entry.1211458252" value="0.5">
+                    <input type="radio" name="entry.1211458252" value="1">
+                    <input type="radio" name="entry.1211458252" value="1.5">
+                    <input type="radio" name="entry.1211458252" value="2">
+                    <input type="radio" name="entry.1211458252" value="2.5">
+                    <input type="radio" name="entry.1211458252" value="3">
+                    <input type="radio" name="entry.1211458252" value="3.5">
+                    <input type="radio" name="entry.1211458252" value="4">
+                    <br>
+                    <br>
+                    <h3> 쾌적감</h3>
+                    <img src='쾌적감.jpg', width="882" height="150">
+                    <input type="radio" name="entry.2069335969"  value="-4"style="font-size:3px";>
+                    <input type="radio" name="entry.2069335969" value="-3.5">
+                    <input type="radio" name="entry.2069335969" value="-3">
+                    <input type="radio" name="entry.2069335969" value="-2.5">
+                    <input type="radio" name="entry.2069335969" value="-2">
+                    <input type="radio" name="entry.2069335969" value="-1.5">
+                    <input type="radio" name="entry.2069335969" value="-1">
+                    <input type="radio" name="entry.2069335969" value="-0.5">
+                    <input type="radio" name="entry.2069335969" value="-0">
+                    <input type="radio" name="entry.2069335969" value="0">
+                    <input type="radio" name="entry.2069335969" value="0.5">
+                    <input type="radio" name="entry.2069335969" value="1">
+                    <input type="radio" name="entry.2069335969" value="1.5">
+                    <input type="radio" name="entry.2069335969" value="2">
+                    <input type="radio" name="entry.2069335969" value="2.5">
+                    <input type="radio" name="entry.2069335969" value="3">
+                    <input type="radio" name="entry.2069335969" value="3.5">
+                    <input type="radio" name="entry.2069335969" value="4">
+                    <br>
+                    <br>
+                    <h2>가슴</h2>
+                    <h3> 한서감</h3>
+                    <img src='한서감.jpg', width="787" height="150"><br>
+                    <input type="radio" name="entry.1983013514"  value="-4"style="font-size:3px";> 
+                    <input type="radio" name="entry.1983013514" value="-3.5">
+                    <input type="radio" name="entry.1983013514" value="-3">
+                    <input type="radio" name="entry.1983013514" value="-2.5">
+                    <input type="radio" name="entry.1983013514" value="-2">
+                    <input type="radio" name="entry.1983013514" value="-1.5">
+                    <input type="radio" name="entry.1983013514" value="-1">
+                    <input type="radio" name="entry.1983013514" value="-0.5">
+                    <input type="radio" name="entry.1983013514" value="0">
+                    <input type="radio" name="entry.1983013514" value="0.5">
+                    <input type="radio" name="entry.1983013514" value="1">
+                    <input type="radio" name="entry.1983013514" value="1.5">
+                    <input type="radio" name="entry.1983013514" value="2">
+                    <input type="radio" name="entry.1983013514" value="2.5">
+                    <input type="radio" name="entry.1983013514" value="3">
+                    <input type="radio" name="entry.1983013514" value="3.5">
+                    <input type="radio" name="entry.1983013514" value="4">
+                    <br>
+                    <br>
+                    
+                    <h3> 쾌적감</h3>
+                    <img src='쾌적감.jpg', width="882" height="150">
+                    <input type="radio" name="entry.655862447"  value="-4"style="font-size:3px";>
+                    <input type="radio" name="entry.655862447" value="-3.5">
+                    <input type="radio" name="entry.655862447" value="-3">
+                    <input type="radio" name="entry.655862447" value="-2.5">
+                    <input type="radio" name="entry.655862447" value="-2">
+                    <input type="radio" name="entry.655862447" value="-1.5">
+                    <input type="radio" name="entry.655862447" value="-1">
+                    <input type="radio" name="entry.655862447" value="-0.5">
+                    <input type="radio" name="entry.655862447" value="-0">
+                    <input type="radio" name="entry.655862447" value="0">
+                    <input type="radio" name="entry.655862447" value="0.5">
+                    <input type="radio" name="entry.655862447" value="1">
+                    <input type="radio" name="entry.655862447" value="1.5">
+                    <input type="radio" name="entry.655862447" value="2">
+                    <input type="radio" name="entry.655862447" value="2.5">
+                    <input type="radio" name="entry.655862447" value="3">
+                    <input type="radio" name="entry.655862447" value="3.5">
+                    <input type="radio" name="entry.655862447" value="4">
+                    <br>
+                    <br>
+                    <h2>복부</h2>
+                    <h3> 한서감</h3>
+                    <img src='한서감.jpg', width="787" height="150"><br>
+                    <input type="radio" name="entry.1731644844"  value="-4"style="font-size:3px";> 
+                    <input type="radio" name="entry.1731644844" value="-3.5">
+                    <input type="radio" name="entry.1731644844" value="-3">
+                    <input type="radio" name="entry.1731644844" value="-2.5">
+                    <input type="radio" name="entry.1731644844" value="-2">
+                    <input type="radio" name="entry.1731644844" value="-1.5">
+                    <input type="radio" name="entry.1731644844" value="-1">
+                    <input type="radio" name="entry.1731644844" value="-0.5">
+                    <input type="radio" name="entry.1731644844" value="0">
+                    <input type="radio" name="entry.1731644844" value="0.5">
+                    <input type="radio" name="entry.1731644844" value="1">
+                    <input type="radio" name="entry.1731644844" value="1.5">
+                    <input type="radio" name="entry.1731644844" value="2">
+                    <input type="radio" name="entry.1731644844" value="2.5">
+                    <input type="radio" name="entry.1731644844" value="3">
+                    <input type="radio" name="entry.1731644844" value="3.5">
+                    <input type="radio" name="entry.1731644844" value="4">
+                    <br>
+                    <br>
+                    
+                    <h3> 쾌적감</h3>
+                    <img src='쾌적감.jpg', width="882" height="150">
+                    <input type="radio" name="entry.532138002"  value="-4"style="font-size:3px";>
+                    <input type="radio" name="entry.532138002" value="-3.5">
+                    <input type="radio" name="entry.532138002" value="-3">
+                    <input type="radio" name="entry.532138002" value="-2.5">
+                    <input type="radio" name="entry.532138002" value="-2">
+                    <input type="radio" name="entry.532138002" value="-1.5">
+                    <input type="radio" name="entry.532138002" value="-1">
+                    <input type="radio" name="entry.532138002" value="-0.5">
+                    <input type="radio" name="entry.532138002" value="-0">
+                    <input type="radio" name="entry.532138002" value="0">
+                    <input type="radio" name="entry.532138002" value="0.5">
+                    <input type="radio" name="entry.532138002" value="1">
+                    <input type="radio" name="entry.532138002" value="1.5">
+                    <input type="radio" name="entry.532138002" value="2">
+                    <input type="radio" name="entry.532138002" value="2.5">
+                    <input type="radio" name="entry.532138002" value="3">
+                    <input type="radio" name="entry.532138002" value="3.5">
+                    <input type="radio" name="entry.532138002" value="4">
+                    <br>
+                    <br>
+                    <h2>등</h2>
+                    <h3> 한서감</h3>
+                    <img src='한서감.jpg', width="787" height="150"><br>
+                    <input type="radio" name="entry.1192252434"  value="-4"style="font-size:3px";> 
+                    <input type="radio" name="entry.1192252434" value="-3.5">
+                    <input type="radio" name="entry.1192252434" value="-3">
+                    <input type="radio" name="entry.1192252434" value="-2.5">
+                    <input type="radio" name="entry.1192252434" value="-2">
+                    <input type="radio" name="entry.1192252434" value="-1.5">
+                    <input type="radio" name="entry.1192252434" value="-1">
+                    <input type="radio" name="entry.1192252434" value="-0.5">
+                    <input type="radio" name="entry.1192252434" value="0">
+                    <input type="radio" name="entry.1192252434" value="0.5">
+                    <input type="radio" name="entry.1192252434" value="1">
+                    <input type="radio" name="entry.1192252434" value="1.5">
+                    <input type="radio" name="entry.1192252434" value="2">
+                    <input type="radio" name="entry.1192252434" value="2.5">
+                    <input type="radio" name="entry.1192252434" value="3">
+                    <input type="radio" name="entry.1192252434" value="3.5">
+                    <input type="radio" name="entry.1192252434" value="4">
+                    <br>
+                    <br>
+                    <h3> 쾌적감</h3>
+                    <img src='쾌적감.jpg', width="882" height="150">
+                    <input type="radio" name="entry.475944147"  value="-4"style="font-size:3px";>
+                    <input type="radio" name="entry.475944147" value="-3.5">
+                    <input type="radio" name="entry.475944147" value="-3">
+                    <input type="radio" name="entry.475944147" value="-2.5">
+                    <input type="radio" name="entry.475944147" value="-2">
+                    <input type="radio" name="entry.475944147" value="-1.5">
+                    <input type="radio" name="entry.475944147" value="-1">
+                    <input type="radio" name="entry.475944147" value="-0.5">
+                    <input type="radio" name="entry.475944147" value="-0">
+                    <input type="radio" name="entry.475944147" value="0">
+                    <input type="radio" name="entry.475944147" value="0.5">
+                    <input type="radio" name="entry.475944147" value="1">
+                    <input type="radio" name="entry.475944147" value="1.5">
+                    <input type="radio" name="entry.475944147" value="2">
+                    <input type="radio" name="entry.475944147" value="2.5">
+                    <input type="radio" name="entry.475944147" value="3">
+                    <input type="radio" name="entry.475944147" value="3.5">
+                    <input type="radio" name="entry.475944147" value="4">
+                    <br>
+                    <br>
+                    <h2>오른상완</h2>
+                    <h3> 한서감</h3>
+                    <img src='한서감.jpg', width="787" height="150"><br>
+                    <input type="radio" name="entry.483082020"  value="-4"style="font-size:3px";> 
+                    <input type="radio" name="entry.483082020" value="-3.5">
+                    <input type="radio" name="entry.483082020" value="-3">
+                    <input type="radio" name="entry.483082020" value="-2.5">
+                    <input type="radio" name="entry.483082020" value="-2">
+                    <input type="radio" name="entry.483082020" value="-1.5">
+                    <input type="radio" name="entry.483082020" value="-1">
+                    <input type="radio" name="entry.483082020" value="-0.5">
+                    <input type="radio" name="entry.483082020" value="0">
+                    <input type="radio" name="entry.483082020" value="0.5">
+                    <input type="radio" name="entry.483082020" value="1">
+                    <input type="radio" name="entry.483082020" value="1.5">
+                    <input type="radio" name="entry.483082020" value="2">
+                    <input type="radio" name="entry.483082020" value="2.5">
+                    <input type="radio" name="entry.483082020" value="3">
+                    <input type="radio" name="entry.483082020" value="3.5">
+                    <input type="radio" name="entry.483082020" value="4">
+                    <br>
+                    <br>
+                    <h3> 쾌적감</h3>
+                    <img src='쾌적감.jpg', width="882" height="150">
+                    <input type="radio" name="entry.1012018010"  value="-4"style="font-size:3px";>
+                    <input type="radio" name="entry.1012018010" value="-3.5">
+                    <input type="radio" name="entry.1012018010" value="-3">
+                    <input type="radio" name="entry.1012018010" value="-2.5">
+                    <input type="radio" name="entry.1012018010" value="-2">
+                    <input type="radio" name="entry.1012018010" value="-1.5">
+                    <input type="radio" name="entry.1012018010" value="-1">
+                    <input type="radio" name="entry.1012018010" value="-0.5">
+                    <input type="radio" name="entry.1012018010" value="-0">
+                    <input type="radio" name="entry.1012018010" value="0">
+                    <input type="radio" name="entry.1012018010" value="0.5">
+                    <input type="radio" name="entry.1012018010" value="1">
+                    <input type="radio" name="entry.1012018010" value="1.5">
+                    <input type="radio" name="entry.1012018010" value="2">
+                    <input type="radio" name="entry.1012018010" value="2.5">
+                    <input type="radio" name="entry.1012018010" value="3">
+                    <input type="radio" name="entry.1012018010" value="3.5">
+                    <input type="radio" name="entry.1012018010" value="4">
+                    <br>
+                    <br>
+                    <h2>오른전완</h2>
+                    <h3> 한서감</h3>
+                    <img src='한서감.jpg', width="787" height="150"><br>
+                    <input type="radio" name="entry.1786883016"  value="-4"style="font-size:3px";> 
+                    <input type="radio" name="entry.1786883016" value="-3.5">
+                    <input type="radio" name="entry.1786883016" value="-3">
+                    <input type="radio" name="entry.1786883016" value="-2.5">
+                    <input type="radio" name="entry.1786883016" value="-2">
+                    <input type="radio" name="entry.1786883016" value="-1.5">
+                    <input type="radio" name="entry.1786883016" value="-1">
+                    <input type="radio" name="entry.1786883016" value="-0.5">
+                    <input type="radio" name="entry.1786883016" value="0">
+                    <input type="radio" name="entry.1786883016" value="0.5">
+                    <input type="radio" name="entry.1786883016" value="1">
+                    <input type="radio" name="entry.1786883016" value="1.5">
+                    <input type="radio" name="entry.1786883016" value="2">
+                    <input type="radio" name="entry.1786883016" value="2.5">
+                    <input type="radio" name="entry.1786883016" value="3">
+                    <input type="radio" name="entry.1786883016" value="3.5">
+                    <input type="radio" name="entry.1786883016" value="4">
+                    <br>
+                    <br>
+                    <h3> 쾌적감</h3>
+                    <img src='쾌적감.jpg', width="882" height="150">
+                    <input type="radio" name="entry.605403350"  value="-4"style="font-size:3px";>
+                    <input type="radio" name="entry.605403350" value="-3.5">
+                    <input type="radio" name="entry.605403350" value="-3">
+                    <input type="radio" name="entry.605403350" value="-2.5">
+                    <input type="radio" name="entry.605403350" value="-2">
+                    <input type="radio" name="entry.605403350" value="-1.5">
+                    <input type="radio" name="entry.605403350" value="-1">
+                    <input type="radio" name="entry.605403350" value="-0.5">
+                    <input type="radio" name="entry.605403350" value="-0">
+                    <input type="radio" name="entry.605403350" value="0">
+                    <input type="radio" name="entry.605403350" value="0.5">
+                    <input type="radio" name="entry.605403350" value="1">
+                    <input type="radio" name="entry.605403350" value="1.5">
+                    <input type="radio" name="entry.605403350" value="2">
+                    <input type="radio" name="entry.605403350" value="2.5">
+                    <input type="radio" name="entry.605403350" value="3">
+                    <input type="radio" name="entry.605403350" value="3.5">
+                    <input type="radio" name="entry.605403350" value="4">
+                    <br>
+                    <br>
+                    <h2>오른손</h2>
+                    <h3> 한서감</h3>
+                    <img src='한서감.jpg', width="787" height="150"><br>
+                    <input type="radio" name="entry.1403781124"  value="-4"style="font-size:3px";> 
+                    <input type="radio" name="entry.1403781124" value="-3.5">
+                    <input type="radio" name="entry.1403781124" value="-3">
+                    <input type="radio" name="entry.1403781124" value="-2.5">
+                    <input type="radio" name="entry.1403781124" value="-2">
+                    <input type="radio" name="entry.1403781124" value="-1.5">
+                    <input type="radio" name="entry.1403781124" value="-1">
+                    <input type="radio" name="entry.1403781124" value="-0.5">
+                    <input type="radio" name="entry.1403781124" value="0">
+                    <input type="radio" name="entry.1403781124" value="0.5">
+                    <input type="radio" name="entry.1403781124" value="1">
+                    <input type="radio" name="entry.1403781124" value="1.5">
+                    <input type="radio" name="entry.1403781124" value="2">
+                    <input type="radio" name="entry.1403781124" value="2.5">
+                    <input type="radio" name="entry.1403781124" value="3">
+                    <input type="radio" name="entry.1403781124" value="3.5">
+                    <input type="radio" name="entry.1403781124" value="4">
+                    <br>
+                    <br>
+                    <h3> 쾌적감</h3>
+                    <img src='쾌적감.jpg', width="882" height="150">
+                    <input type="radio" name="entry.651222317"  value="-4"style="font-size:3px";>
+                    <input type="radio" name="entry.651222317" value="-3.5">
+                    <input type="radio" name="entry.651222317" value="-3">
+                    <input type="radio" name="entry.651222317" value="-2.5">
+                    <input type="radio" name="entry.651222317" value="-2">
+                    <input type="radio" name="entry.651222317" value="-1.5">
+                    <input type="radio" name="entry.651222317" value="-1">
+                    <input type="radio" name="entry.651222317" value="-0.5">
+                    <input type="radio" name="entry.651222317" value="-0">
+                    <input type="radio" name="entry.651222317" value="0">
+                    <input type="radio" name="entry.651222317" value="0.5">
+                    <input type="radio" name="entry.651222317" value="1">
+                    <input type="radio" name="entry.651222317" value="1.5">
+                    <input type="radio" name="entry.651222317" value="2">
+                    <input type="radio" name="entry.651222317" value="2.5">
+                    <input type="radio" name="entry.651222317" value="3">
+                    <input type="radio" name="entry.651222317" value="3.5">
+                    <input type="radio" name="entry.651222317" value="4">
+                    <br>
+                    <br>
+                    <h2>왼쪽상완</h2>
+                    <h3> 한서감</h3>
+                    <img src='한서감.jpg', width="787" height="150"><br>
+                    <input type="radio" name="entry.989120070"  value="-4"style="font-size:3px";> 
+                    <input type="radio" name="entry.989120070" value="-3.5">
+                    <input type="radio" name="entry.989120070" value="-3">
+                    <input type="radio" name="entry.989120070" value="-2.5">
+                    <input type="radio" name="entry.989120070" value="-2">
+                    <input type="radio" name="entry.989120070" value="-1.5">
+                    <input type="radio" name="entry.989120070" value="-1">
+                    <input type="radio" name="entry.989120070" value="-0.5">
+                    <input type="radio" name="entry.989120070" value="0">
+                    <input type="radio" name="entry.989120070" value="0.5">
+                    <input type="radio" name="entry.989120070" value="1">
+                    <input type="radio" name="entry.989120070" value="1.5">
+                    <input type="radio" name="entry.989120070" value="2">
+                    <input type="radio" name="entry.989120070" value="2.5">
+                    <input type="radio" name="entry.989120070" value="3">
+                    <input type="radio" name="entry.989120070" value="3.5">
+                    <input type="radio" name="entry.989120070" value="4">
+                    <br>
+                    <br>
+                    <h3> 쾌적감</h3>
+                    <img src='쾌적감.jpg', width="882" height="150">
+                    <input type="radio" name="entry.369106139"  value="-4"style="font-size:3px";>
+                    <input type="radio" name="entry.369106139" value="-3.5">
+                    <input type="radio" name="entry.369106139" value="-3">
+                    <input type="radio" name="entry.369106139" value="-2.5">
+                    <input type="radio" name="entry.369106139" value="-2">
+                    <input type="radio" name="entry.369106139" value="-1.5">
+                    <input type="radio" name="entry.369106139" value="-1">
+                    <input type="radio" name="entry.369106139" value="-0.5">
+                    <input type="radio" name="entry.369106139" value="-0">
+                    <input type="radio" name="entry.369106139" value="0">
+                    <input type="radio" name="entry.369106139" value="0.5">
+                    <input type="radio" name="entry.369106139" value="1">
+                    <input type="radio" name="entry.369106139" value="1.5">
+                    <input type="radio" name="entry.369106139" value="2">
+                    <input type="radio" name="entry.369106139" value="2.5">
+                    <input type="radio" name="entry.369106139" value="3">
+                    <input type="radio" name="entry.369106139" value="3.5">
+                    <input type="radio" name="entry.369106139" value="4">
+                    <br>
+                    <br>
+                    <h2>왼쪽전완</h2>
+                    <h3> 한서감</h3>
+                    <img src='한서감.jpg', width="787" height="150"><br>
+                    <input type="radio" name="entry.755040414"  value="-4"style="font-size:3px";> 
+                    <input type="radio" name="entry.755040414" value="-3.5">
+                    <input type="radio" name="entry.755040414" value="-3">
+                    <input type="radio" name="entry.755040414" value="-2.5">
+                    <input type="radio" name="entry.755040414" value="-2">
+                    <input type="radio" name="entry.755040414" value="-1.5">
+                    <input type="radio" name="entry.755040414" value="-1">
+                    <input type="radio" name="entry.755040414" value="-0.5">
+                    <input type="radio" name="entry.755040414" value="0">
+                    <input type="radio" name="entry.755040414" value="0.5">
+                    <input type="radio" name="entry.755040414" value="1">
+                    <input type="radio" name="entry.755040414" value="1.5">
+                    <input type="radio" name="entry.755040414" value="2">
+                    <input type="radio" name="entry.755040414" value="2.5">
+                    <input type="radio" name="entry.755040414" value="3">
+                    <input type="radio" name="entry.755040414" value="3.5">
+                    <input type="radio" name="entry.755040414" value="4">
+                    <br>
+                    <br>
+                    <h3> 쾌적감</h3>
+                    <img src='쾌적감.jpg', width="882" height="150">
+                    <input type="radio" name="entry.334910629"  value="-4"style="font-size:3px";>
+                    <input type="radio" name="entry.334910629" value="-3.5">
+                    <input type="radio" name="entry.334910629" value="-3">
+                    <input type="radio" name="entry.334910629" value="-2.5">
+                    <input type="radio" name="entry.334910629" value="-2">
+                    <input type="radio" name="entry.334910629" value="-1.5">
+                    <input type="radio" name="entry.334910629" value="-1">
+                    <input type="radio" name="entry.334910629" value="-0.5">
+                    <input type="radio" name="entry.334910629" value="-0">
+                    <input type="radio" name="entry.334910629" value="0">
+                    <input type="radio" name="entry.334910629" value="0.5">
+                    <input type="radio" name="entry.334910629" value="1">
+                    <input type="radio" name="entry.334910629" value="1.5">
+                    <input type="radio" name="entry.334910629" value="2">
+                    <input type="radio" name="entry.334910629" value="2.5">
+                    <input type="radio" name="entry.334910629" value="3">
+                    <input type="radio" name="entry.334910629" value="3.5">
+                    <input type="radio" name="entry.334910629" value="4">
+                    <br>
+                    <br>
+                    <h2>왼손</h2>
+                    <h3> 한서감</h3>
+                    <img src='한서감.jpg', width="787" height="150"><br>
+                    <input type="radio" name="entry.237082561"  value="-4"style="font-size:3px";> 
+                    <input type="radio" name="entry.237082561" value="-3.5">
+                    <input type="radio" name="entry.237082561" value="-3">
+                    <input type="radio" name="entry.237082561" value="-2.5">
+                    <input type="radio" name="entry.237082561" value="-2">
+                    <input type="radio" name="entry.237082561" value="-1.5">
+                    <input type="radio" name="entry.237082561" value="-1">
+                    <input type="radio" name="entry.237082561" value="-0.5">
+                    <input type="radio" name="entry.237082561" value="0">
+                    <input type="radio" name="entry.237082561" value="0.5">
+                    <input type="radio" name="entry.237082561" value="1">
+                    <input type="radio" name="entry.237082561" value="1.5">
+                    <input type="radio" name="entry.237082561" value="2">
+                    <input type="radio" name="entry.237082561" value="2.5">
+                    <input type="radio" name="entry.237082561" value="3">
+                    <input type="radio" name="entry.237082561" value="3.5">
+                    <input type="radio" name="entry.237082561" value="4">
+                    <br>
+                    <br>
+                    <h3> 쾌적감</h3>
+                    <img src='쾌적감.jpg', width="882" height="150">
+                    <input type="radio" name="entry.1265325058"  value="-4"style="font-size:3px";>
+                    <input type="radio" name="entry.1265325058" value="-3.5">
+                    <input type="radio" name="entry.1265325058" value="-3">
+                    <input type="radio" name="entry.1265325058" value="-2.5">
+                    <input type="radio" name="entry.1265325058" value="-2">
+                    <input type="radio" name="entry.1265325058" value="-1.5">
+                    <input type="radio" name="entry.1265325058" value="-1">
+                    <input type="radio" name="entry.1265325058" value="-0.5">
+                    <input type="radio" name="entry.1265325058" value="-0">
+                    <input type="radio" name="entry.1265325058" value="0">
+                    <input type="radio" name="entry.1265325058" value="0.5">
+                    <input type="radio" name="entry.1265325058" value="1">
+                    <input type="radio" name="entry.1265325058" value="1.5">
+                    <input type="radio" name="entry.1265325058" value="2">
+                    <input type="radio" name="entry.1265325058" value="2.5">
+                    <input type="radio" name="entry.1265325058" value="3">
+                    <input type="radio" name="entry.1265325058" value="3.5">
+                    <input type="radio" name="entry.1265325058" value="4">
+                    <br>
+                    <br>
+                    <h2>오른허벅지</h2>
+                    <h3> 한서감</h3>
+                    <img src='한서감.jpg', width="787" height="150"><br>
+                    <input type="radio" name="entry.1589670539"  value="-4"style="font-size:3px";> 
+                    <input type="radio" name="entry.1589670539" value="-3.5">
+                    <input type="radio" name="entry.1589670539" value="-3">
+                    <input type="radio" name="entry.1589670539" value="-2.5">
+                    <input type="radio" name="entry.1589670539" value="-2">
+                    <input type="radio" name="entry.1589670539" value="-1.5">
+                    <input type="radio" name="entry.1589670539" value="-1">
+                    <input type="radio" name="entry.1589670539" value="-0.5">
+                    <input type="radio" name="entry.1589670539" value="0">
+                    <input type="radio" name="entry.1589670539" value="0.5">
+                    <input type="radio" name="entry.1589670539" value="1">
+                    <input type="radio" name="entry.1589670539" value="1.5">
+                    <input type="radio" name="entry.1589670539" value="2">
+                    <input type="radio" name="entry.1589670539" value="2.5">
+                    <input type="radio" name="entry.1589670539" value="3">
+                    <input type="radio" name="entry.1589670539" value="3.5">
+                    <input type="radio" name="entry.1589670539" value="4">
+                    <br>
+                    <br>
+                    <h3> 쾌적감</h3>
+                    <img src='쾌적감.jpg', width="882" height="150">
+                    <input type="radio" name="entry.689396200"  value="-4"style="font-size:3px";>
+                    <input type="radio" name="entry.689396200" value="-3.5">
+                    <input type="radio" name="entry.689396200" value="-3">
+                    <input type="radio" name="entry.689396200" value="-2.5">
+                    <input type="radio" name="entry.689396200" value="-2">
+                    <input type="radio" name="entry.689396200" value="-1.5">
+                    <input type="radio" name="entry.689396200" value="-1">
+                    <input type="radio" name="entry.689396200" value="-0.5">
+                    <input type="radio" name="entry.689396200" value="-0">
+                    <input type="radio" name="entry.689396200" value="0">
+                    <input type="radio" name="entry.689396200" value="0.5">
+                    <input type="radio" name="entry.689396200" value="1">
+                    <input type="radio" name="entry.689396200" value="1.5">
+                    <input type="radio" name="entry.689396200" value="2">
+                    <input type="radio" name="entry.689396200" value="2.5">
+                    <input type="radio" name="entry.689396200" value="3">
+                    <input type="radio" name="entry.689396200" value="3.5">
+                    <input type="radio" name="entry.689396200" value="4">
+                    <br>
+                    <br>
+                    <h2>왼허벅지</h2>
+                    <h3> 한서감</h3>
+                    <img src='한서감.jpg', width="787" height="150"><br>
+                    <input type="radio" name="entry.1098747003"  value="-4"style="font-size:3px";> 
+                    <input type="radio" name="entry.1098747003" value="-3.5">
+                    <input type="radio" name="entry.1098747003" value="-3">
+                    <input type="radio" name="entry.1098747003" value="-2.5">
+                    <input type="radio" name="entry.1098747003" value="-2">
+                    <input type="radio" name="entry.1098747003" value="-1.5">
+                    <input type="radio" name="entry.1098747003" value="-1">
+                    <input type="radio" name="entry.1098747003" value="-0.5">
+                    <input type="radio" name="entry.1098747003" value="0">
+                    <input type="radio" name="entry.1098747003" value="0.5">
+                    <input type="radio" name="entry.1098747003" value="1">
+                    <input type="radio" name="entry.1098747003" value="1.5">
+                    <input type="radio" name="entry.1098747003" value="2">
+                    <input type="radio" name="entry.1098747003" value="2.5">
+                    <input type="radio" name="entry.1098747003" value="3">
+                    <input type="radio" name="entry.1098747003" value="3.5">
+                    <input type="radio" name="entry.1098747003" value="4">
+                    <br>
+                    <br>
+                    <h3> 쾌적감</h3>
+                    <img src='쾌적감.jpg', width="882" height="150">
+                    <input type="radio" name="entry.1098622786"  value="-4"style="font-size:3px";>
+                    <input type="radio" name="entry.1098622786" value="-3.5">
+                    <input type="radio" name="entry.1098622786" value="-3">
+                    <input type="radio" name="entry.1098622786" value="-2.5">
+                    <input type="radio" name="entry.1098622786" value="-2">
+                    <input type="radio" name="entry.1098622786" value="-1.5">
+                    <input type="radio" name="entry.1098622786" value="-1">
+                    <input type="radio" name="entry.1098622786" value="-0.5">
+                    <input type="radio" name="entry.1098622786" value="-0">
+                    <input type="radio" name="entry.1098622786" value="0">
+                    <input type="radio" name="entry.1098622786" value="0.5">
+                    <input type="radio" name="entry.1098622786" value="1">
+                    <input type="radio" name="entry.1098622786" value="1.5">
+                    <input type="radio" name="entry.1098622786" value="2">
+                    <input type="radio" name="entry.1098622786" value="2.5">
+                    <input type="radio" name="entry.1098622786" value="3">
+                    <input type="radio" name="entry.1098622786" value="3.5">
+                    <input type="radio" name="entry.1098622786" value="4">
+                    <br>
+                    <br>
+                    <h2>오른종아리</h2>
+                    <h3> 한서감</h3>
+                    <img src='한서감.jpg', width="787" height="150"><br>
+                    <input type="radio" name="entry.1002047196"  value="-4"style="font-size:3px";> 
+                    <input type="radio" name="entry.1002047196" value="-3.5">
+                    <input type="radio" name="entry.1002047196" value="-3">
+                    <input type="radio" name="entry.1002047196" value="-2.5">
+                    <input type="radio" name="entry.1002047196" value="-2">
+                    <input type="radio" name="entry.1002047196" value="-1.5">
+                    <input type="radio" name="entry.1002047196" value="-1">
+                    <input type="radio" name="entry.1002047196" value="-0.5">
+                    <input type="radio" name="entry.1002047196" value="0">
+                    <input type="radio" name="entry.1002047196" value="0.5">
+                    <input type="radio" name="entry.1002047196" value="1">
+                    <input type="radio" name="entry.1002047196" value="1.5">
+                    <input type="radio" name="entry.1002047196" value="2">
+                    <input type="radio" name="entry.1002047196" value="2.5">
+                    <input type="radio" name="entry.1002047196" value="3">
+                    <input type="radio" name="entry.1002047196" value="3.5">
+                    <input type="radio" name="entry.1002047196" value="4">
+                    <br>
+                    <br>
+                    <h3> 쾌적감</h3>
+                    <img src='쾌적감.jpg', width="882" height="150">
+                    <input type="radio" name="entry.828911656"  value="-4"style="font-size:3px";>
+                    <input type="radio" name="entry.828911656" value="-3.5">
+                    <input type="radio" name="entry.828911656" value="-3">
+                    <input type="radio" name="entry.828911656" value="-2.5">
+                    <input type="radio" name="entry.828911656" value="-2">
+                    <input type="radio" name="entry.828911656" value="-1.5">
+                    <input type="radio" name="entry.828911656" value="-1">
+                    <input type="radio" name="entry.828911656" value="-0.5">
+                    <input type="radio" name="entry.828911656" value="-0">
+                    <input type="radio" name="entry.828911656" value="0">
+                    <input type="radio" name="entry.828911656" value="0.5">
+                    <input type="radio" name="entry.828911656" value="1">
+                    <input type="radio" name="entry.828911656" value="1.5">
+                    <input type="radio" name="entry.828911656" value="2">
+                    <input type="radio" name="entry.828911656" value="2.5">
+                    <input type="radio" name="entry.828911656" value="3">
+                    <input type="radio" name="entry.828911656" value="3.5">
+                    <input type="radio" name="entry.828911656" value="4">
+                    <br>
+                    <br>
+                    <h2>왼종아리</h2>
+                    <h3> 한서감</h3>
+                    <img src='한서감.jpg', width="787" height="150"><br>
+                    <input type="radio" name="entry.2049865303"  value="-4"style="font-size:3px";> 
+                    <input type="radio" name="entry.2049865303" value="-3.5">
+                    <input type="radio" name="entry.2049865303" value="-3">
+                    <input type="radio" name="entry.2049865303" value="-2.5">
+                    <input type="radio" name="entry.2049865303" value="-2">
+                    <input type="radio" name="entry.2049865303" value="-1.5">
+                    <input type="radio" name="entry.2049865303" value="-1">
+                    <input type="radio" name="entry.2049865303" value="-0.5">
+                    <input type="radio" name="entry.2049865303" value="0">
+                    <input type="radio" name="entry.2049865303" value="0.5">
+                    <input type="radio" name="entry.2049865303" value="1">
+                    <input type="radio" name="entry.2049865303" value="1.5">
+                    <input type="radio" name="entry.2049865303" value="2">
+                    <input type="radio" name="entry.2049865303" value="2.5">
+                    <input type="radio" name="entry.2049865303" value="3">
+                    <input type="radio" name="entry.2049865303" value="3.5">
+                    <input type="radio" name="entry.2049865303" value="4">
+                    <br>
+                    <br>
+                    <h3> 쾌적감</h3>
+                    <img src='쾌적감.jpg', width="882" height="150">
+                    <input type="radio" name="entry.762530075"  value="-4"style="font-size:3px";>
+                    <input type="radio" name="entry.762530075" value="-3.5">
+                    <input type="radio" name="entry.762530075" value="-3">
+                    <input type="radio" name="entry.762530075" value="-2.5">
+                    <input type="radio" name="entry.762530075" value="-2">
+                    <input type="radio" name="entry.762530075" value="-1.5">
+                    <input type="radio" name="entry.762530075" value="-1">
+                    <input type="radio" name="entry.762530075" value="-0.5">
+                    <input type="radio" name="entry.762530075" value="-0">
+                    <input type="radio" name="entry.762530075" value="0">
+                    <input type="radio" name="entry.762530075" value="0.5">
+                    <input type="radio" name="entry.762530075" value="1">
+                    <input type="radio" name="entry.762530075" value="1.5">
+                    <input type="radio" name="entry.762530075" value="2">
+                    <input type="radio" name="entry.762530075" value="2.5">
+                    <input type="radio" name="entry.762530075" value="3">
+                    <input type="radio" name="entry.762530075" value="3.5">
+                    <input type="radio" name="entry.762530075" value="4">
+                    <br>
+                    <br>
+                    <h2>오른발</h2>
+                    <h3> 한서감</h3>
+                    <img src='한서감.jpg', width="787" height="150"><br>
+                    <input type="radio" name="entry.1591289764"  value="-4"style="font-size:3px";> 
+                    <input type="radio" name="entry.1591289764" value="-3.5">
+                    <input type="radio" name="entry.1591289764" value="-3">
+                    <input type="radio" name="entry.1591289764" value="-2.5">
+                    <input type="radio" name="entry.1591289764" value="-2">
+                    <input type="radio" name="entry.1591289764" value="-1.5">
+                    <input type="radio" name="entry.1591289764" value="-1">
+                    <input type="radio" name="entry.1591289764" value="-0.5">
+                    <input type="radio" name="entry.1591289764" value="0">
+                    <input type="radio" name="entry.1591289764" value="0.5">
+                    <input type="radio" name="entry.1591289764" value="1">
+                    <input type="radio" name="entry.1591289764" value="1.5">
+                    <input type="radio" name="entry.1591289764" value="2">
+                    <input type="radio" name="entry.1591289764" value="2.5">
+                    <input type="radio" name="entry.1591289764" value="3">
+                    <input type="radio" name="entry.1591289764" value="3.5">
+                    <input type="radio" name="entry.1591289764" value="4">
+                    <br>
+                    <br>
+                    <h3> 쾌적감</h3>
+                    <img src='쾌적감.jpg', width="882" height="150">
+                    <input type="radio" name="entry.1656097460"  value="-4"style="font-size:3px";>
+                    <input type="radio" name="entry.1656097460" value="-3.5">
+                    <input type="radio" name="entry.1656097460" value="-3">
+                    <input type="radio" name="entry.1656097460" value="-2.5">
+                    <input type="radio" name="entry.1656097460" value="-2">
+                    <input type="radio" name="entry.1656097460" value="-1.5">
+                    <input type="radio" name="entry.1656097460" value="-1">
+                    <input type="radio" name="entry.1656097460" value="-0.5">
+                    <input type="radio" name="entry.1656097460" value="-0">
+                    <input type="radio" name="entry.1656097460" value="0">
+                    <input type="radio" name="entry.1656097460" value="0.5">
+                    <input type="radio" name="entry.1656097460" value="1">
+                    <input type="radio" name="entry.1656097460" value="1.5">
+                    <input type="radio" name="entry.1656097460" value="2">
+                    <input type="radio" name="entry.1656097460" value="2.5">
+                    <input type="radio" name="entry.1656097460" value="3">
+                    <input type="radio" name="entry.1656097460" value="3.5">
+                    <input type="radio" name="entry.1656097460" value="4">
+                    <br>
+                    <br>
+                    <h2>왼발</h2>
+                    <h3> 한서감</h3>
+                    <img src='한서감.jpg', width="787" height="150"><br>
+                    <input type="radio" name="entry.341370161"  value="-4"style="font-size:3px";> 
+                    <input type="radio" name="entry.341370161" value="-3.5">
+                    <input type="radio" name="entry.341370161" value="-3">
+                    <input type="radio" name="entry.341370161" value="-2.5">
+                    <input type="radio" name="entry.341370161" value="-2">
+                    <input type="radio" name="entry.341370161" value="-1.5">
+                    <input type="radio" name="entry.341370161" value="-1">
+                    <input type="radio" name="entry.341370161" value="-0.5">
+                    <input type="radio" name="entry.341370161" value="0">
+                    <input type="radio" name="entry.341370161" value="0.5">
+                    <input type="radio" name="entry.341370161" value="1">
+                    <input type="radio" name="entry.341370161" value="1.5">
+                    <input type="radio" name="entry.341370161" value="2">
+                    <input type="radio" name="entry.341370161" value="2.5">
+                    <input type="radio" name="entry.341370161" value="3">
+                    <input type="radio" name="entry.341370161" value="3.5">
+                    <input type="radio" name="entry.341370161" value="4">
+                    <br>
+                    <br>
+                    <h3> 쾌적감</h3>
+                    <img src='쾌적감.jpg', width="882" height="150">
+                    <input type="radio" name="entry.2134476800"  value="-4"style="font-size:3px";>
+                    <input type="radio" name="entry.2134476800" value="-3.5">
+                    <input type="radio" name="entry.2134476800" value="-3">
+                    <input type="radio" name="entry.2134476800" value="-2.5">
+                    <input type="radio" name="entry.2134476800" value="-2">
+                    <input type="radio" name="entry.2134476800" value="-1.5">
+                    <input type="radio" name="entry.2134476800" value="-1">
+                    <input type="radio" name="entry.2134476800" value="-0.5">
+                    <input type="radio" name="entry.2134476800" value="-0">
+                    <input type="radio" name="entry.2134476800" value="0">
+                    <input type="radio" name="entry.2134476800" value="0.5">
+                    <input type="radio" name="entry.2134476800" value="1">
+                    <input type="radio" name="entry.2134476800" value="1.5">
+                    <input type="radio" name="entry.2134476800" value="2">
+                    <input type="radio" name="entry.2134476800" value="2.5">
+                    <input type="radio" name="entry.2134476800" value="3">
+                    <input type="radio" name="entry.2134476800" value="3.5">
+                    <input type="radio" name="entry.2134476800" value="4">
+                    <br>
+                    <br>
+
+                    
+                
+                <div id="submission-hc">
+                    <!--input type="button" class="btn-yes" value="결과" onclick="myFunction()"-->
+                    <input type="reset" value="새로고침">
+                </div>
+                <hr> <!--textarea id="myResult" rows="8" style="white-space:pre;">위의 결과를 누르시면 결과가 클립보드로 복사됩니다.</textarea--> 
+                <input type="submit" value="DB저장"> 
+                <a href="https://docs.google.com/spreadsheets/d/1ktcEf84UNWunlFk2RzNWcfnYJcmScOd2K20XVQOpxn8/edit?usp=sharing"target="_blank" style="text-decoration:none;"> 
+                    <span style="border:1px solid grey; background-color:#ddd; padding: 2px; font-size:14px;">DB 보기 <br></span></a> 
+                    <iframe name="resultIframe"width="700" height="50px">iframe</iframe>
+                 </div> </div> 
+                 <script>
+                    const scriptURL = 'https://script.google.com/macros/s/AKfycbzwl262u_S-xajcbAv0xA-J9Est5dlUv3MN5r095-4mQ5MauEug/exec'
+                    const form = document.forms['google-sheet']
+                  
+                    form.addEventListener('submit', e => {
+                      e.preventDefault()
+                      fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+                        .then(response => alert("Thanks for Contacting us..! We Will Contact You Soon..."))
+                        .catch(error => console.error('Error!', error.message))
+                    })
+                  </script>
+        
+                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+                </body> </html>
+
+
+
+
+
+
+
+
+
+
